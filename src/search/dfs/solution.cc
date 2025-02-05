@@ -1,5 +1,5 @@
 /**
- * problem reference: https://www.hackerrank.com/challenges/ctci-connected-cell-in-a-grid/copy-from/94720334
+ * problem reference: https://www.hackerrank.com/challenges/ctci-connected-cell-in-a-grid/
  */
 #include <bits/stdc++.h>
 
@@ -7,7 +7,9 @@ using namespace std;
 
 /**
  * @class adj_iterator
- * @brief the iterator to get valid neighbor, inspired by Python generator
+ * @brief the iterator to get valid neighbor, inspired by Python generator;
+ * another variant is the version where the iterator does the whole thing by generating the node to visit
+ * directly in the DFS order
  *
  */
 class adj_iterator {
