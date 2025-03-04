@@ -8,4 +8,4 @@
 
 - Production related topic is not covered by this repository for the moment.
 
-- Due to intellectual property reasons, the test cases are supposed to be found directly on the websites where the problems of code examples refer to. The Jenkins pipeline used to run on my own infrastructure. Due to cost saving purpose I do no longer run it any more. If it is requested or any enthusiasm comes back one day, I might spend some of my time to run it again.
+- In order to take into account content creators' interest, the test cases are supposed to be found directly on the websites where the problems of code examples refer to. The Jenkins pipeline used to run on my own infrastructure, for cost saving reason, I do no longer constantly run it. If it is requested or any enthusiasm comes back one day, I might reactivate it using an alternative infrastructure.
