@@ -1,0 +1,3 @@
+[submodule "src"]
+	path = src
+	url = ssh://git@orsay.hhh.pa:2222/diffusion/84/cpp-code-snippets-src.git
