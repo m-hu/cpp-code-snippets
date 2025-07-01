@@ -2,10 +2,33 @@
 
 ## Introduction
 
-- This repository aims at collecting frequently used algorithms for a software engineer's general knowledge but implementing them in an easy to understand way.
+This repository is a curated collection of commonly used algorithms, aimed at reinforcing a software engineer’s general algorithmic knowledge. Each snippet is implemented in a minimal and accessible manner, focusing on clarity of logic rather than production-readiness.
 
-- The repository contains only snippets, which means they are supposed to be adapted to specific use cases and hence are implemented in a minimalist way focused only on algorithms themselves.
+### Scope
 
-- Production related topic is not covered by this repository for the moment.
+The repository intentionally excludes production-level concerns such as:
 
-- In order to take into account content creators' interest, the test cases are supposed to be found directly on the websites where the problems of code examples refer to. The Jenkins pipeline used to run on my own infrastructure, for cost saving reason, I do no longer constantly run it. If it is requested or any enthusiasm comes back one day, I might reactivate it using an alternative infrastructure.
+- Memory management  
+- Error handling  
+- Vulnerability mitigation  
+
+These aspects, while important in real-world applications, are intentionally left out to keep the focus on core algorithmic logic. The assumption is that the intended viewers are primarily interested in the conceptual content itself, rather than scrutinizing the code for potential attack surfaces or production-level robustness.
+
+### Privacy & Exposure
+
+Some code examples have been moved to a **private repository** as a precautionary measure to limit exposure and reduce potential risk, especially when the repository is accessed in contexts where the intent of the viewer is uncertain.
+
+### Test Cases
+
+To respect the rights of original content creators, **test cases are not included** in this repository. Instead, they can be found on the websites where the referenced problems originate.
+
+### CI/CD Pipeline
+
+A Jenkins pipeline was previously set up to automatically validate the snippets. It has since been deactivated for two main reasons:
+
+1. **Cost efficiency** – maintaining personal infrastructure continuously is inefficient.  
+2. **Security** – running automated pipelines, especially during unattended hours, introduces the risk of code injection or unauthorized execution.
+
+The pipeline may be restored in the future using a more secure and cost-effective setup if interest arises.
+
+
