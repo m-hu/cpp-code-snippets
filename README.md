@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This repository is a curated collection of commonly used algorithms, aimed at reinforcing a software engineer’s general algorithmic knowledge. Each snippet is implemented in a minimal and accessible manner, focusing on clarity of logic rather than production-readiness.
+This piece of code is a curated collection of commonly used algorithms, aimed at reinforcing a software engineer’s general algorithmic knowledge. Each snippet is implemented in a minimal and accessible manner, focusing on clarity of logic rather than production-readiness.
 
 ### Scope
 
