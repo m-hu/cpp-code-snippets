@@ -33,6 +33,11 @@ void mergeSort(std::vector<int> &nums, size_t l, size_t r) {
 }
 
 inline std::vector<int> merge_sort(std::vector<int> &nums) {
+	if (nums.size() < 2) {
+		// Guard the empty vector: nums.size() - 1 would underflow to
+		// SIZE_MAX and mergeSort would recurse on a bogus range.
+		return nums;
+	}
 	mergeSort(nums, 0, nums.size() - 1);
 	return nums;
 }
