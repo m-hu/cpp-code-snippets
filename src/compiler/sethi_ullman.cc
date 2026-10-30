@@ -4,12 +4,13 @@
 using namespace std;
 vector<string> toks; size_t p;
 struct Node{bool leaf; string label; Node *l,*r; int su;};
+vector<Node*> _pool; // own all Nodes; freed at exit (LSan-clean)
 Node* parse(){
     if(toks[p]=="("){p++; string op=toks[p++]; Node* L=parse(); Node* R=parse(); p++;
-        Node* n=new Node(); n->leaf=false; n->label=op; n->l=L; n->r=R;
+        Node* n=new Node(); _pool.push_back(n); n->leaf=false; n->label=op; n->l=L; n->r=R;
         n->su = (L->su==R->su)? L->su+1 : max(L->su,R->su);
         return n;}
-    Node* n=new Node(); n->leaf=true; n->label=toks[p++]; n->l=n->r=nullptr; n->su=1;
+    Node* n=new Node(); _pool.push_back(n); n->leaf=true; n->label=toks[p++]; n->l=n->r=nullptr; n->su=1;
     return n;
 }
 void order(Node* n, vector<string>& out){
@@ -39,5 +40,6 @@ int main(){
         for(size_t i=0;i<o.size();i++) cout<<" "<<o[i];
         cout<<"\n";
     }
+    for(auto q:_pool)delete q;
     return 0;
 }

@@ -7,9 +7,10 @@
 using namespace std;
 // Types: Var(id), Con(name), Arrow(l,r)
 struct Ty{ int kind; int id; string name; Ty *l,*r; }; // kind 0=var 1=con 2=arrow
-Ty* TVar(int id){ Ty*t=new Ty(); t->kind=0; t->id=id; return t; }
-Ty* TCon(string n){ Ty*t=new Ty(); t->kind=1; t->name=n; return t; }
-Ty* TArr(Ty*a,Ty*b){ Ty*t=new Ty(); t->kind=2; t->l=a; t->r=b; return t; }
+static vector<Ty*> _typool; // own all Ty nodes; freed at exit (LSan-clean)
+Ty* TVar(int id){ Ty*t=new Ty(); _typool.push_back(t); t->kind=0; t->id=id; return t; }
+Ty* TCon(string n){ Ty*t=new Ty(); _typool.push_back(t); t->kind=1; t->name=n; return t; }
+Ty* TArr(Ty*a,Ty*b){ Ty*t=new Ty(); _typool.push_back(t); t->kind=2; t->l=a; t->r=b; return t; }
 typedef map<int,Ty*> Subst;
 Ty* applyS(Subst& s, Ty* t){
     if(t->kind==0){ auto it=s.find(t->id); if(it==s.end())return t; return applyS(s,it->second); }
@@ -47,13 +48,14 @@ bool unify(Ty* a, Ty* b, Subst& s, Subst& out){
     return false;
 }
 // Exprs
-struct Ex{ int kind; string atom; string var; Ex *a,*b,*c; }; // 0=atom 1=lam(var,body) 2=app 3=let(var,val,body) 4=if 5=binop(atom,e1,e2)
-Ex* EAtom(string s){ Ex*e=new Ex(); e->kind=0; e->atom=s; return e; }
-Ex* ELam(string v,Ex* b){ Ex*e=new Ex(); e->kind=1; e->var=v; e->a=b; return e; }
-Ex* EApp(Ex*f,Ex*x){ Ex*e=new Ex(); e->kind=2; e->a=f; e->b=x; return e; }
-Ex* ELet(string v,Ex*val,Ex*bo){ Ex*e=new Ex(); e->kind=3; e->var=v; e->a=val; e->b=bo; return e; }
-Ex* EIf(Ex*c,Ex*t,Ex*e2){ Ex*e=new Ex(); e->kind=4; e->a=c; e->b=t; e->c=e2; return e; }
-Ex* EBin(string op,Ex*x,Ex*y){ Ex*e=new Ex(); e->kind=5; e->atom=op; e->a=x; e->b=y; return e; }
+struct Ex{ int kind; string atom; string var; Ex *a,*b,*c; };
+static vector<Ex*> _expools; // own all Ex nodes; freed at exit (LSan-clean) // 0=atom 1=lam(var,body) 2=app 3=let(var,val,body) 4=if 5=binop(atom,e1,e2)
+Ex* EAtom(string s){ Ex*e=new Ex(); _expools.push_back(e); e->kind=0; e->atom=s; return e; }
+Ex* ELam(string v,Ex* b){ Ex*e=new Ex(); _expools.push_back(e); e->kind=1; e->var=v; e->a=b; return e; }
+Ex* EApp(Ex*f,Ex*x){ Ex*e=new Ex(); _expools.push_back(e); e->kind=2; e->a=f; e->b=x; return e; }
+Ex* ELet(string v,Ex*val,Ex*bo){ Ex*e=new Ex(); _expools.push_back(e); e->kind=3; e->var=v; e->a=val; e->b=bo; return e; }
+Ex* EIf(Ex*c,Ex*t,Ex*e2){ Ex*e=new Ex(); _expools.push_back(e); e->kind=4; e->a=c; e->b=t; e->c=e2; return e; }
+Ex* EBin(string op,Ex*x,Ex*y){ Ex*e=new Ex(); _expools.push_back(e); e->kind=5; e->atom=op; e->a=x; e->b=y; return e; }
 struct Parser{ string s; size_t p; bool bad;
     void sp(){ while(p<s.size()&&isspace(s[p]))p++; }
     Ex* expr(){
@@ -202,5 +204,6 @@ int main(){
         for(size_t i=0;i<vs.size();i++)nm[vs[i]]=string(1,'a'+i);
         cout<<"HM "<<showT(f,nm)<<"\n";
     }
+    for(auto p:_typool)delete p; for(auto p:_expools)delete p;
     return 0;
 }

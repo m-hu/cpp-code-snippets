@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 long long egcd(long long a,long long b,long long &x,long long &y){
     if(b==0){ x=1; y=0; return a; }

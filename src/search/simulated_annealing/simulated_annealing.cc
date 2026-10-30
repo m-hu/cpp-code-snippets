@@ -20,7 +20,7 @@ int attacking_pairs(const vector<int>& b){
 }
 struct LCG{ uint64_t s; LCG(uint64_t seed):s(seed){}
     uint64_t next(){ s=s*6364136223846793005ULL+1442695040888963407ULL; return s; }
-    double nextDouble(){ return (next()>>11)*0x1.0p-53; }
+    double nextDouble(){ return (next()>>11)*(1.0/9007199254740992.0); }
     int nextInt(int n){ return (int)(next()% (uint64_t)n); }
 };
 int main(){
