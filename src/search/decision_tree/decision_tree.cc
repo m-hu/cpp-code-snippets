@@ -14,10 +14,11 @@ double entropy(const vector<int>& idx){
     return -(p*log(p)+(1-p)*log(1-p));
 }
 struct Node{ bool leaf; int label, feat; Node *l,*r; int depth; };
+static vector<Node*> _pool;
 Node* build(const vector<int>& idx, int used, int depth, int parent_maj){
     int c0=0,c1=0;
     for(int i:idx)(Y[i]==1?c1:c0)++;
-    Node* nd=new Node(); nd->depth=depth;
+    Node* nd=new Node(); _pool.push_back(nd); nd->depth=depth;
     if(idx.empty()){nd->leaf=true;nd->label=parent_maj;nd->l=nd->r=nullptr;return nd;}
     if(c0==0||c1==0||depth>=D||used==(1<<F)){
         nd->leaf=true;nd->label=(c1>=c0?1:0);nd->l=nd->r=nullptr;return nd;
@@ -60,5 +61,6 @@ int main(){
         for(int i=0;i<N;i++){if(i)cout<<' ';cout<<predict(root,X[i]);}
         cout<<"\n";
     }
+    for(Node* p:_pool)delete p;
     return 0;
 }
