@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <cstdio>
+#include <iomanip>
 #include <cmath>
 #include <limits>
 using namespace std;
@@ -87,6 +87,6 @@ int main(){
     cout<<path.size()<<"\n";
     for(int i=(int)path.size()-1;i>=0;i--){if(i!=(int)path.size()-1)cout<<" ";cout<<path[i];}
     cout<<"\n";
-    printf("%.6f\n",dist[1]);
+    cout<<fixed<<setprecision(6)<<dist[1]<<"\n";
     return 0;
 }
